@@ -3,8 +3,8 @@ const{ uploadcontact, getContacts } = require('../Service/contact');
 const { response } = require('express');
 exports.uploadContactByUser = async(req , res ) =>{
     try{
-        const {contact_name,contact_mobile,contact_email,contact_message} = req.body 
-        const result = await uploadcontact(contact_name,contact_mobile,contact_email,contact_message);
+        const {contact_name,contact_mobileno,contact_emailid,contact_message} = req.body 
+        const result = await uploadcontact(contact_name,contact_mobileno,contact_emailid,contact_message);
               if (result && result.affectedRows === 1) {
              return res.status(200).json({
              response: "success",
