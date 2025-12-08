@@ -1,30 +1,31 @@
 const express = require('express');
-const app = express();
+const cors = require('cors');
 const bodyParser = require('body-parser');
-const cors = require("cors");
-const database = require('./Src/Db_connection/Database');
-require("dotenv").config();
+require('dotenv').config();
 
-// Middleware
-app.use(bodyParser.json());
+const contactRouter = require('./Src/Routes/index.routes');
+const adminRouter = require('./Src/Routes/admin');
+const db = require('./Src/Db_connection/Database');
+
+const app = express();
 app.use(cors());
+app.use(bodyParser.json());
 
-// Routes
-app.get('/', (req, res) => {
-    res.send('The port is running');
-});
+// health
+app.get('/', (req, res) => res.send('Portfolio backend running'));
 
-const contactrouter = require('./Src/Routes/index.routes');
-app.use("/contactw", contactrouter);
+// routes
+app.use('/api/contact', contactRouter);
+app.use('/api/admin', adminRouter);
 
-// Start server
-app.listen(process.env.PORT || 3000, async () => {
-    console.log(`Server running on port ${process.env.PORT || 3000}`);
-
-    try {
-        const result = await database.query("SELECT NOW()");
-        console.log("Connected to Neon PostgreSQL:", result.rows[0]);
-    } catch (err) {
-        console.error("Database connection error:", err);
-    }
+// start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, async () => {
+  console.log('Server running on port', PORT);
+  try {
+    const now = await db.query('SELECT NOW()');
+    console.log('Postgres connected:', now.rows[0]);
+  } catch (err) {
+    console.error('Postgres connection error on startup', err);
+  }
 });

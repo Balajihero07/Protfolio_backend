@@ -1,5 +1,5 @@
 const { body } = require('express-validator');
-const{ uploadcontact, getContacts } = require('../Service/contact');
+const{ uploadcontact, getContacts,} = require('../Service/contact');
 const { response } = require('express');
 exports.uploadContactByUser = async(req , res ) =>{
     try{
@@ -55,3 +55,27 @@ exports.getContactByAdmin = async(req,res)=>{
       });
     }
 }
+// exports.deletemessage = async(req,res)=>{
+//   try{
+//     const {id} = req.body;
+//     result = await delmessage(id);
+//     if(result && result.affectedRows ==1 )
+//     {
+//       return res.status(200).json({
+//         response:'Success',
+//         message:'Delete message successfully'
+//       })
+//     }
+//     else{
+//       return res.status(500).json({
+//         response:"Faild",
+//         message:"Record not found"
+//       })
+//     }
+//   }catch(error){
+//     return res.status(500).json({
+//       response:"error",
+//       message:error
+//     })
+//   }
+// }

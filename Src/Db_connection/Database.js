@@ -20,14 +20,29 @@
 //     throw error;
 //   }
 // };
-const { Pool } = require("pg");
-require("dotenv").config();
+// const { Pool } = require("pg");
+// require("dotenv").config();
+
+// const pool = new Pool({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: { rejectUnauthorized: false }   // required for Neon
+// });
+
+// console.log("PostgreSQL Database Connected");
+
+// module.exports = pool;
+// backend/src/db.js
+const { Pool } = require('pg');
+require('dotenv').config();
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }   // required for Neon
+  ssl: { rejectUnauthorized: false }
 });
 
-console.log("PostgreSQL Database Connected");
+pool.on('error', (err) => {
+  console.error('Unexpected PG client error', err);
+});
 
 module.exports = pool;
+

@@ -50,3 +50,19 @@ exports.getContacts = async () => {
         throw error;
     }
 };
+// exports.delmessage = async (id) => {
+//   try {
+//     const sql = `
+//       UPDATE contact
+//       SET deleted_at = NOW()
+//       WHERE id = $1
+//     `;
+
+//     const result = await db.query(sql, [id]);
+//     return result;
+//   } catch (error) {
+//     console.error("Error soft deleting message:", error);
+//     throw error;
+//   }
+// };
+
